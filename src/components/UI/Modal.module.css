@@ -9,7 +9,7 @@
 }
 .modal {
   position: fixed;
-  top: 12vh;
+  top: 10vh;
   left: 5%;
   max-width: 40rem;
   width: 90%;
@@ -26,15 +26,6 @@
   left: 58%;
   top: 8vh;
 }
-/* .signUp {
-  width: 90%;
-  max-width: 43rem;
-  padding: 1rem;
-  border-radius: 12px;
-  background-color: white;
-  margin: 3rem auto;
-} */
-
 @media (min-width: 768px) {
   .modal {
     width: 100%;
