@@ -54,6 +54,12 @@ const SignInForm = (props) => {
       setOldUser(false);
     }
   };
+  const m = oldUser;
+  console.log(m);
+  const labelBorder = !oldUser
+    ? { border: "1px solid red" }
+    : { border: "1px solid #ccc" };
+  console.log(labelBorder);
   return (
     <div className={classes.signUp}>
       <form onSubmit={formSubmitHandler}>
@@ -67,9 +73,10 @@ const SignInForm = (props) => {
               onChange={emailChangeHandler}
               onBlur={emailBlurHandler}
               value={enteredEmail}
+              style={labelBorder}
             />
           </div>
-          {emailHasError && !eHasError && (
+          {!emailHasError && !eHasError && !oldUser && (
             <p className={classes.errorText}>
               please enter a valid email-address
             </p>
@@ -83,9 +90,10 @@ const SignInForm = (props) => {
               onChange={passwordChangeHandler}
               onBlur={passwordBlurHandler}
               value={enteredPassword}
+              style={labelBorder}
             />
           </div>
-          {passwordHasError && !pHasError && (
+          {!passwordHasError && !pHasError && !oldUser && (
             <p className={classes.errorText}>
               password must be atleast 10 characters
             </p>
@@ -96,7 +104,7 @@ const SignInForm = (props) => {
         </div>
         {!oldUser && (
           <p className={classes.userErrorText}>
-            The email address or password you entered isn't connected to an
+            The email address or password you entered isn't connected to any
             account.Please check the details and try again
           </p>
         )}
