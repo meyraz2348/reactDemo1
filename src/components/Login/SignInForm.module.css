@@ -3,20 +3,32 @@
 .form-control {
   margin: 1rem 0rem;
   display: flex;
-  margin-left: calc(50% - 13rem);
-  max-width: 25rem;
+  /* margin-left: calc(50% - 13rem);
+  max-width: 25rem; */
+}
+/* .form-control label {
+  margin-bottom: 0.5rem;
+  min-width: 12rem;
+  text-align: center;
+  border: #8a2b06;
+} */
+.form-control input,
+.form-control label {
+  display: flex;
 }
 .form-control label {
+  font-weight: bold;
   margin-bottom: 0.5rem;
-  text-align: center;
+  min-width: 12rem;
   border: #8a2b06;
 }
 .errorText {
   color: #b40e0e;
-  max-width: 20rem;
-  text-align: left;
+  /* max-width: 20rem; */
+  /* text-align: left; */
+  display: grid;
   margin-top: -0.5rem;
-  margin-left: 5rem;
+  /* margin-left: 12rem; */
 }
 .userErrorText {
   color: #b40e0e;
@@ -25,15 +37,17 @@
   margin-bottom: -0.5rem;
 }
 .form-control input,
-.form-control select,
-.form-control textarea {
+.form-control select {
   font: inherit;
   border-radius: 4px;
+  padding: 0.5rem;
   border: 1px solid #ccc;
-  text-align: center;
-  min-width: 12rem;
+  /* text-align: center; */
+  /* min-width: 12rem; */
 }
-
+.form-control input {
+  text-align: center;
+}
 .form-control input:focus {
   outline: none;
   border-color: #8a2b06;
@@ -42,16 +56,24 @@
 
 .control-group {
   display: grid;
+  column-gap: 1rem;
+  top: 12vh;
+  left: 5%;
   width: 100%;
   background-color: white;
   padding: 1rem;
   border-radius: 14px;
+  animation: slide-down 300ms ease-out forwards;
 }
+.control-group .form-control {
+  min-width: 15rem;
+  flex: 1;
+}
+
 .formActions button {
   font: inherit;
   background-color: #6d6460;
   color: white;
-  min-width: 10rem;
   width: 23rem;
   border: 1px solid #6d6460;
   padding: 0.5rem 1.5rem;
@@ -84,7 +106,6 @@
   font: inherit;
   background-color: rgb(7, 201, 7);
   color: white;
-  min-width: 10rem;
   width: 23rem;
   border: 1px solid green;
   padding: 0.5rem 1.5rem;
@@ -99,13 +120,13 @@
 @media (min-width: 150px) {
   .form-control input {
     width: 100%;
-    margin-left: calc(50% - 10.75rem);
+    margin-left: -12rem;
   }
   .errorText {
-    margin-left: 6.5rem;
+    /* margin-left: rem; */
   }
 }
-@media (min-width: 130px) {
+/* @media (min-width: 130px) {
   .errorText {
     margin-left: 0.65rem;
   }
@@ -124,4 +145,4 @@
   .userErrorText {
     margin-left: 7.5rem;
   }
-}
+} */

@@ -18,6 +18,11 @@
   min-width: 12rem;
   border: #8a2b06;
 }
+.form-control input {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
 .errorText {
   display: grid;
   color: #b40e0e;
@@ -95,9 +100,9 @@
 @media (min-width: 150px) {
   .form-control input {
     width: 100%;
-    margin-left: -3rem;
+    margin-left: -12rem;
   }
   .errorText {
-    margin-left: 9rem;
+    /* margin-left: 1rem; */
   }
 }

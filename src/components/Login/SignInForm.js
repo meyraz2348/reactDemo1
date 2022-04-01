@@ -59,7 +59,7 @@ const SignInForm = (props) => {
       <form onSubmit={formSubmitHandler}>
         <div className={classes["control-group"]}>
           <div className={classes["form-control"]}>
-            <label htmlFor="name" />
+            <label htmlFor="name"></label>
             <input
               type="text"
               id="name"
@@ -75,7 +75,7 @@ const SignInForm = (props) => {
             </p>
           )}
           <div className={classes["form-control"]}>
-            <label htmlFor="password" />
+            <label htmlFor="password"></label>
             <input
               type="password"
               id="password"
