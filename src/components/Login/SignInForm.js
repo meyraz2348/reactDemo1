@@ -44,7 +44,7 @@ const SignInForm = (props) => {
   const loginHandler = () => {
     // const userDataExists = fetchData(enteredEmail, enteredPassword);
     const userDataExists = true;
-    if (userDataExists) {
+    if (!userDataExists) {
       cartCtx.loginInfo(true, "LOGIN");
       cartCtx.loginInfo(false, "ERRORTEXT");
       setOldUser(true);

@@ -3,15 +3,8 @@
 .form-control {
   margin: 1rem 0rem;
   display: flex;
-  /* margin-left: calc(50% - 13rem);
-  max-width: 25rem; */
 }
-/* .form-control label {
-  margin-bottom: 0.5rem;
-  min-width: 12rem;
-  text-align: center;
-  border: #8a2b06;
-} */
+
 .form-control input,
 .form-control label {
   display: flex;
@@ -24,16 +17,13 @@
 }
 .errorText {
   color: #b40e0e;
-  /* max-width: 20rem; */
-  /* text-align: left; */
   display: grid;
   margin-top: -0.5rem;
-  /* margin-left: 12rem; */
 }
 .userErrorText {
   color: #b40e0e;
-  max-width: 22rem;
-  text-align: justify;
+  display: grid;
+  padding: 0rem 1rem;
   margin-bottom: -0.5rem;
 }
 .form-control input,
@@ -42,8 +32,6 @@
   border-radius: 4px;
   padding: 0.5rem;
   border: 1px solid #ccc;
-  /* text-align: center; */
-  /* min-width: 12rem; */
 }
 .form-control input {
   text-align: center;
@@ -122,27 +110,4 @@
     width: 100%;
     margin-left: -12rem;
   }
-  .errorText {
-    /* margin-left: rem; */
-  }
 }
-/* @media (min-width: 130px) {
-  .errorText {
-    margin-left: 0.65rem;
-  }
-  .userErrorText {
-    margin-left: 1rem;
-  }
-}
-@media (min-width: 768px) {
-  .form-control input {
-    width: 100%;
-    margin-left: calc(50% - 11.5rem);
-  }
-  .errorText {
-    margin-left: 6rem;
-  }
-  .userErrorText {
-    margin-left: 7.5rem;
-  }
-} */
