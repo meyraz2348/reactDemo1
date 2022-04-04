@@ -1,10 +1,9 @@
 .sectionClasses {
   display: grid;
   max-width: 8rem;
-  max-height: 20rem;
-  align-items: center;
-  margin-left: calc(88% - 8rem);
-  margin-bottom: 0.75rem;
+  width: 90%;
+  text-align: center;
+  margin: 0rem auto;
 }
 .sectionButtons {
   padding: 1rem 0.5rem;
@@ -16,12 +15,6 @@
 }
 .sectionButtons:hover {
   background-color: #7a2706;
-}
-
-@media (min-width: 768px) {
-  .sectionClasses {
-    margin-left: 6%;
-  }
 }
 .cart-items {
   list-style: none;
@@ -76,4 +69,18 @@
 .actions .button {
   background-color: #8a2b06;
   color: white;
+}
+
+@media (max-width: 150px) {
+  .sectionButtons {
+    padding: 2rem 1rem;
+    margin: 2rem 0rem;
+  }
+  .sectionClasses {
+    display: grid;
+    max-width: 12rem;
+    width: 90%;
+    text-align: center;
+    margin: auto;
+  }
 }

@@ -9,7 +9,7 @@
 }
 .modal {
   position: fixed;
-  top: 10vh;
+  top: 12vh;
   left: 5%;
   max-width: 40rem;
   width: 90%;
@@ -22,10 +22,19 @@
 }
 .modalAccount {
   max-width: 12rem;
-  width: 30%;
-  left: 58%;
+  width: 35%;
+  left: 55%;
   top: 8vh;
 }
+/* .signUp {
+  width: 90%;
+  max-width: 43rem;
+  padding: 1rem;
+  border-radius: 12px;
+  background-color: white;
+  margin: 3rem auto;
+} */
+
 @media (min-width: 768px) {
   .modal {
     width: 100%;
@@ -33,15 +42,25 @@
   }
   .modalAccount {
     width: 100%;
-    left: calc(100% - 22rem);
+    left: calc(100% - 21rem);
   }
 }
-@media (min-width: 150px) {
+@media (max-width: 150px) {
   .modal {
     width: 90%;
   }
   .modalAccount {
+    max-width: 18rem;
     width: 100%;
+    left: 39%;
+    height: 91.5%;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 14px;
+    margin: auto 1rem;
+    /* transition: margin-left 0.5s; */
+    animation: slide-down 300ms ease-out backwards;
   }
 }
 
@@ -55,3 +74,13 @@
     transform: translateY(0);
   }
 }
+/* @keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-2rem);
+  }
+} */
