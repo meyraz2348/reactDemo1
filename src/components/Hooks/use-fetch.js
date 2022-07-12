@@ -1,21 +1,24 @@
-const fetchData = async (email, password) => {
-  const response = await fetch(
+const fetchData = async (firstName, lastName, email, password) => {
+  console.log(firstName, lastName, email, password);
+  await fetch(
     "https://reacthooks-9c135-default-rtdb.firebaseio.com/orders.json",
     {
-      method: "GET",
+      method: "POST",
+      body: JSON.stringify({
+        customerId: Math.trunc(10000000 * Math.random()),
+        user: {
+          firstName,
+          lastName,
+          email,
+          password,
+        },
+        orderedItems: [],
+      }),
     }
   );
-  const data = await response.json();
-  for (const key in data) {
-    if (
-      data[key].orders.emailAddress === email &&
-      data[key].orders.password === password
-    ) {
-      return true;
-    }
-  }
 };
-const useFetch = (email, password) => {
-  fetchData(email, password);
+const useFetch = (firstName, lastName, email, password) => {
+  console.log("inside fetch");
+  fetchData(firstName, lastName, email, password);
 };
 export default useFetch;

@@ -9,6 +9,7 @@ const defaultCartState = {
   err: false,
   isCartClicked: false,
   isAccountClicked: false,
+  key: "",
 };
 
 const cartReducer = (state, action) => {
@@ -33,10 +34,12 @@ const cartReducer = (state, action) => {
       updatedItems = state.items.concat(action.item);
     }
     const userLog = state.isLoggedIn;
+    const updatekey = state.key;
 
     return {
       items: updatedItems,
       totalAmount: updatedTotalAmount,
+      key: updatekey,
       isLoggedIn: userLog,
     };
   }
@@ -55,27 +58,34 @@ const cartReducer = (state, action) => {
       updatedItems[existingCartItemIndex] = updatedItem;
     }
     const userLog = state.isLoggedIn;
+    const updatekey = state.key;
+
     return {
       items: updatedItems,
       totalAmount: updatedTotalAmount,
+      key: updatekey,
       isLoggedIn: userLog,
     };
   }
   if (action.type === "CLEAR") {
     const k = { ...defaultCartState };
+    const updatekey = state.key;
     const userLog = state.isLoggedIn;
     return {
       items: k.items,
       totalAmount: k.totalAmount,
+      key: updatekey,
       isLoggedIn: userLog,
     };
   }
   if (action.type === "LOGIN") {
     const updateIsloggedIn = action.val;
+    const updatekey = state.key;
     const updateErrorMessage = state.err;
     const upItem = state.items;
     const upamt = state.totalAmount;
     return {
+      key: updatekey,
       isLoggedIn: updateIsloggedIn,
       err: updateErrorMessage,
       items: upItem,
@@ -84,10 +94,12 @@ const cartReducer = (state, action) => {
   }
   if (action.type === "ERRORTEXT") {
     const updateErrorMessage = action.val;
+    const updatekey = state.key;
     const updateIsloggedIn = state.isLoggedIn;
     const upItem = state.items;
     const upamt = state.totalAmount;
     return {
+      key: updatekey,
       isLoggedIn: updateIsloggedIn,
       err: updateErrorMessage,
       items: upItem,
@@ -96,12 +108,14 @@ const cartReducer = (state, action) => {
   }
   if (action.type === "CART") {
     const updateIsCartClicked = action.val;
+    const updatekey = state.key;
     const updateIsAccountClicked = state.isAccountClicked;
     const updateErrorMessage = state.isLoggedIn;
     const updateIsloggedIn = state.isLoggedIn;
     const upItem = state.items;
     const upamt = state.totalAmount;
     return {
+      key: updatekey,
       isLoggedIn: updateIsloggedIn,
       err: updateErrorMessage,
       items: upItem,
@@ -112,12 +126,32 @@ const cartReducer = (state, action) => {
   }
   if (action.type === "ACCOUNT") {
     const updateIsAccountClicked = action.val;
+    const updatekey = state.key;
     const updateIsCartClicked = state.isCartClicked;
     const updateErrorMessage = state.isLoggedIn;
     const updateIsloggedIn = state.isLoggedIn;
     const upItem = state.items;
     const upamt = state.totalAmount;
     return {
+      key: updatekey,
+      isLoggedIn: updateIsloggedIn,
+      err: updateErrorMessage,
+      items: upItem,
+      isCartClicked: updateIsCartClicked,
+      isAccountClicked: updateIsAccountClicked,
+      totalAmount: upamt,
+    };
+  }
+  if (action.type === "KEY") {
+    const updatekey = action.val;
+    const updateIsAccountClicked = state.isAccountClicked;
+    const updateIsCartClicked = state.isCartClicked;
+    const updateErrorMessage = state.isLoggedIn;
+    const updateIsloggedIn = state.isLoggedIn;
+    const upItem = state.items;
+    const upamt = state.totalAmount;
+    return {
+      key: updatekey,
       isLoggedIn: updateIsloggedIn,
       err: updateErrorMessage,
       items: upItem,
@@ -156,6 +190,7 @@ const CartProvider = (props) => {
     err: cartState.err,
     isCartClicked: cartState.isCartClicked,
     isAccountClicked: cartState.isAccountClicked,
+    key: cartState.key,
     loginInfo: userAuthenticator,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,

@@ -9,6 +9,7 @@ const CartContext = React.createContext({
   isCartClicked: false,
   isAccountClicked: false,
   totalAmount: 0,
+  key: "",
   addItem: (item) => {},
   removeItem: (id) => {},
   clearCart: () => {},

@@ -1,11 +1,13 @@
 import CartContext from "../../store/cart-context";
 import useInput from "../Hooks/use-input";
-import useFetch from "../Hooks/use-fetch";
 import classes from "./SignInForm.module.css";
 import { useContext, useState } from "react";
+import { onValue, ref } from "firebase/database";
+import { db } from "../../fireBaseConfig";
 
 const SignInForm = (props) => {
   const [oldUser, setOldUser] = useState(true);
+  const [userDataExists, setUserDataExists] = useState(false);
   const cartCtx = useContext(CartContext);
   const [pHasError, setPasswordHasError] = useState(false);
   const [eHasError, setEmailHasError] = useState(false);
@@ -25,12 +27,34 @@ const SignInForm = (props) => {
     inputBlurHandler: passwordBlurHandler,
     reset: resetPassword,
   } = useInput((value) => value.length === 10);
-  let formIsValid = false;
+  let formIsValid = true;
   if (emailIsValid && passwordIsValid) {
     formIsValid = true;
   }
+  const fetchData = (email, password) => {
+    console.log(email, password);
+    onValue(ref(db), (snapshot) => {
+      const data = snapshot.val();
+      const keys = Object.keys(data);
+      if (data !== null) {
+        for (let i = 0; i < keys.length; i++) {
+          console.log(keys[i]);
+          console.log(data[keys[i]].user.email, data[keys[i]].user.password);
+          if (
+            data[keys[i]].user.email === `${email}` &&
+            data[keys[i]].user.password === `${password}`
+          ) {
+            cartCtx.loginInfo(keys[i], "KEY");
+            setUserDataExists(true);
+            return;
+          }
+        }
+      }
+    });
+  };
   const formSubmitHandler = (event) => {
     event.preventDefault();
+
     if (formIsValid) {
       setEmailHasError(false);
       setPasswordHasError(false);
@@ -42,8 +66,8 @@ const SignInForm = (props) => {
   };
 
   const loginHandler = () => {
-    // const userDataExists = fetchData(enteredEmail, enteredPassword);
-    const userDataExists = true;
+    console.log(enteredEmail, enteredPassword);
+    fetchData(enteredEmail, enteredPassword);
     if (userDataExists) {
       cartCtx.loginInfo(true, "LOGIN");
       cartCtx.loginInfo(false, "ERRORTEXT");
@@ -54,12 +78,10 @@ const SignInForm = (props) => {
       setOldUser(false);
     }
   };
-  const m = oldUser;
-  console.log(m);
   const labelBorder = !oldUser
     ? { border: "1px solid red" }
     : { border: "1px solid #ccc" };
-  console.log(labelBorder);
+
   return (
     <div className={classes.signUp}>
       <form onSubmit={formSubmitHandler}>
@@ -76,7 +98,7 @@ const SignInForm = (props) => {
               style={labelBorder}
             />
           </div>
-          {!emailHasError && !eHasError && !oldUser && (
+          {emailHasError && (
             <p className={classes.errorText}>
               please enter a valid email-address
             </p>
@@ -93,7 +115,7 @@ const SignInForm = (props) => {
               style={labelBorder}
             />
           </div>
-          {!passwordHasError && !pHasError && !oldUser && (
+          {passwordHasError && (
             <p className={classes.errorText}>
               password must be atleast 10 characters
             </p>

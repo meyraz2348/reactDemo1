@@ -7,6 +7,8 @@ import CartContext from "../../store/cart-context";
 import LoginForm from "../Login/LoginForm";
 import Account from "../Account/Account";
 import SignInForm from "../Login/SignInForm";
+import { db } from "../../fireBaseConfig";
+import { onValue, ref, update } from "firebase/database";
 
 const Cart = (props) => {
   const [isCheckout, setIsCheckout] = useState(false);
@@ -16,11 +18,11 @@ const Cart = (props) => {
   const cartCtx = useContext(CartContext);
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
   const hasItems = cartCtx.items.length > 0;
+  let ordersList = [];
   const cartItemRemoveHandler = (id) => {
     cartCtx.removeItem(id);
   };
   const createAccountHandler = () => {
-    console.log("inside createa account");
     setOldUser(false);
   };
   const cartItemAddHandler = (item) => {
@@ -29,21 +31,34 @@ const Cart = (props) => {
   const orderHandler = () => {
     setIsCheckout(true);
   };
+
+  // if (data !== null) {
+  //   const keys = Object.keys(data);
+  //   console.log(data[keys].orderedItems);
+  //   return data[keys].orderedItems;
+  // }
+
+  // console.log(previousOrdersList);
   const submitDataHandler = async (userData) => {
-    setIsSubmitting(true);
-    await fetch(
-      "https://reacthooks-9c135-default-rtdb.firebaseio.com/orders.json",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          customerId: Math.trunc(10000000 * Math.random()),
-          user: userData,
-          orderedItems: cartCtx.items,
-        }),
+    onValue(ref(db), (snapshot) => {
+      const data = snapshot.val();
+      if (data !== null) {
+        const keys = Object.keys(data);
+        console.log(data[cartCtx.key]);
+        const previousOrdersList = data[cartCtx.key].orderedItems;
+        ordersList = previousOrdersList.map((order) => {
+          return [...ordersList, order];
+        });
+        console.log(ordersList);
       }
-    );
-    setIsSubmitting(false);
+    });
+    update(ref(db, cartCtx.key), {
+      orderedItems: [...ordersList, cartCtx.items],
+      address: userData,
+    });
+    setIsSubmitting(true);
     setDidSubmit(true);
+    setIsSubmitting(false);
     cartCtx.clearCart();
   };
   const cartItems = (

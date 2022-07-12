@@ -1,10 +1,12 @@
 import CartContext from "../../store/cart-context";
 import useInput from "../Hooks/use-input";
 import classes from "./LoginForm.module.css";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { set, ref } from "firebase/database";
+import { db } from "../../fireBaseConfig";
+import { uid } from "uid";
 
 const LoginForm = (props) => {
-  // const [userIsLoggedIn, setUserIsLoggedIn] = useState(false)
   const cartCtx = useContext(CartContext);
   const {
     value: firstName,
@@ -42,6 +44,21 @@ const LoginForm = (props) => {
   if (firstNameIsValid && lastNameIsValid && emailIsValid && passwordIsValid) {
     formIsValid = true;
   }
+  const fetchData = async (firstName, lastName, email, password) => {
+    const uniqueId = uid();
+    set(ref(db, uniqueId), {
+      uuid: uniqueId,
+      user: {
+        firstName,
+        lastName,
+        email,
+        password,
+      },
+      orderedItems: ["1"],
+      address: [],
+    });
+    cartCtx.loginInfo(uniqueId, "KEY");
+  };
   const formSubmitHandler = (event) => {
     event.preventDefault();
     if (!formIsValid) return; // just a double check as the user can enable submit button from dev tools
@@ -50,10 +67,11 @@ const LoginForm = (props) => {
     resetEmail();
     resetPassword();
   };
+
   const loginHandler = () => {
     cartCtx.loginInfo(true, "LOGIN");
     cartCtx.loginInfo(false, "ERRORTEXT");
-    console.log("im inside abc");
+    fetchData(firstName, lastName, enteredEmail, enteredPassword);
     props.onCancel();
   };
   return (

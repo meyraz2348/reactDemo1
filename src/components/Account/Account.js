@@ -7,6 +7,7 @@ const Account = (props) => {
     props.onHide();
     cartCtx.loginInfo(false, "LOGIN");
     cartCtx.loginInfo(false, "ACCOUNT");
+    cartCtx.loginInfo("", "KEY");
   };
   return (
     <section className={classes.sectionClasses}>

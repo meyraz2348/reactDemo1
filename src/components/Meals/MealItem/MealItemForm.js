@@ -25,8 +25,6 @@ const MealItemForm = (props) => {
       props.onAddToCart(enteredAmountNumber);
     } else {
       cartCtx.loginInfo(true, "ERRORTEXT");
-      console.log(err);
-      console.log("in else");
     }
   };
   return (
